@@ -1,5 +1,9 @@
+"""
+file: glossary.py
+author: Niam Patel
+Description: A(n overly) complex solution to glossaries! 
+"""
 from tkinter import *
-from tkinter import messagebox
 import csv
 
 glossary = None
