@@ -32,7 +32,7 @@ def retreive_entry(event):
   raw = event.widget.get()
   if raw == "?":
     event.widget.delete(0, len(event.widget.get()))
-    event.widget.insert(0, "Type the entry, then Control-n to add it to the file. <Tab> clears the field.")
+    event.widget.insert(0, "Type the entry, see help page 2 to add definitions. <Tab> clears the field.")
   elif raw == "?1":
     event.widget.delete(0, len(event.widget.get()))
     event.widget.insert(0, "Type added definitions as 'name:definition'")
