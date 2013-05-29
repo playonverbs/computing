@@ -16,11 +16,12 @@ def pull_data(filename):
   data = [row for row in data]
   global glossary
   glossary = dict(data)
+  glossary = dict([(k.strip(), v.strip()) for k, v in glossary.items()])
   raw.close()
 
 def write_data(filename, data):
   "Takes an object[list/dict] to write to the specified .csv file, then calls pull_data()"
-  raw = open(filename, "w")
+  raw = open(filename, "a")
   write = csv.writer(raw)
   write.writerow(data)
   raw.close()
@@ -35,6 +36,9 @@ def retreive_entry(event):
   elif raw == "?1":
     event.widget.delete(0, len(event.widget.get()))
     event.widget.insert(0, "Type added definitions as 'name:definition'")
+  elif ':' in raw:
+    add_entry(raw)
+    event.widget.delete(0, len(event.widget.get()))
   else:
     try:
       data = glossary[raw]
@@ -45,17 +49,11 @@ def retreive_entry(event):
       event.widget.delete(0, len(event.widget.get()))
       event.widget.insert(0, data)
 
-def add_entry(event):
+def add_entry(raw):
   "Parses entry into a list, then calls write_data()"
-  raw = event.widget.get()
   data = raw.split(":")
   data[:] = [x.strip() for x in data]
   write_data("glossary.csv", data)
-  #key = re.search('^\w*', raw)
-  #key = key.group()
-  #value = re.search('', raw)
-  event.widget.delete(0, len(raw))
-  event.widget.insert(0, [d for d in data])
 
 def clear_entry(event):
   "Clear the target entry box"
@@ -72,7 +70,6 @@ def build_widgets(window):
   e1 = Entry(window, exportselection = 0, justify=CENTER)
   e1.pack(side = BOTTOM, expand = 1, fill = "x")
   e1.bind("<Return>", retreive_entry)
-  e1.bind("<Control-n>", add_entry)
   e1.bind("<Tab>", clear_entry)
 
 app = Tk()
