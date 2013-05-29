@@ -1,7 +1,7 @@
 """
 file: glossary.py
 author: Niam Patel
-Description: A(n overly) complex solution to glossaries!
+Description: A(n overly) complex solution to glossaries! More list comprehensions than you can shake a stick at!
 Dependencies: Python 3.x with Tcl/Tk support
 """
 from tkinter import *
@@ -65,7 +65,7 @@ def destroy(event):
 
 def build_widgets(window):
   "Renders and packs the widget elements onto the screen"
-  l1 = Label(window, text = "Enter a term to search, then press Return to execute the query. ? = help:pg1, ?1 = help:pg2")
+  l1 = Label(window, text = "Enter a term to search (use the x:y syntax to add), press Return to query. ? = help:pg1, ?1 = help:pg2")
   l1.pack(side = TOP)
   e1 = Entry(window, exportselection = 0, justify=CENTER)
   e1.pack(side = BOTTOM, expand = 1, fill = "x")
@@ -77,7 +77,7 @@ win = Frame(app)
 win.pack()
 app.bind("<Control-q>", destroy)
 app.title("Glossary")
-app.maxsize(600,50)
+app.maxsize(700,50)
 pull_data("glossary.csv")
 
 build_widgets(win)
