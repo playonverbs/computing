@@ -1,7 +1,8 @@
 """
 file: glossary.py
 author: Niam Patel
-Description: A(n overly) complex solution to glossaries! 
+Description: A(n overly) complex solution to glossaries!
+Dependencies: Python 3.x with Tcl/Tk support
 """
 from tkinter import *
 import csv
@@ -21,7 +22,9 @@ def write_data(filename, data):
   "Takes an object[list/dict] to write to the specified .csv file, then calls pull_data()"
   raw = open(filename, "w")
   write = csv.writer(raw)
+  write.writerow(data)
   raw.close()
+  pull_data(filename)
 
 def retreive_entry(event):
   "Takes the widgets value and retreives the corresponding value from glossary"
@@ -47,6 +50,7 @@ def add_entry(event):
   raw = event.widget.get()
   data = raw.split(":")
   data[:] = [x.strip() for x in data]
+  write_data("glossary.csv", data)
   #key = re.search('^\w*', raw)
   #key = key.group()
   #value = re.search('', raw)
